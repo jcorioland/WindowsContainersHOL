@@ -1,7 +1,8 @@
 # Windows Containers HOL
 
 ## Introduction
-This repo contains Hands-on-Labs to help you to get started with Windows Containers &amp; Docker
+This repo contains labs to help you to get started with Windows Containers &amp; Docker.
+
 You will discover how to install and use Windows Containers on both Windows Server 2016 or Windows 10 and how to use Docker to work with these containers.
 
 ## Part 1 - Setup your environment
