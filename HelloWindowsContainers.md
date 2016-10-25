@@ -14,12 +14,12 @@ docker run -it microsoft/windowsservercore cmd
 This command will start a new container using the Windows Server Core base image and start cmd.exe within the container. The -it option allows to start the container in interactive mode so you can be connected within the container and use CMD from the inside: 
 
 ![HelloWindowsContainers1]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/HelloWindowsContainers1.jpg)
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part2/HelloWindowsContainers1.jpg)
 
 If you start another PowerShell window and type **docker ps** you will see that a container is running:
 
 ![HelloWindowsContainers2]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/HelloWindowsContainers2.jpg)
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part2/HelloWindowsContainers2.jpg)
 
 Depending on whether you are running the previous command on Windows Server 2016 or Windows 10, you are not working with the same kind of Windows Containers.
 
@@ -29,7 +29,7 @@ Actually, there are two types of Windows Containers:
 - Hyper-V Containers, that runs inside a small virtual machine on Hyper-V
 
 ![HelloWindowsContainers3]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/HelloWindowsContainers3.jpg)
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part2/HelloWindowsContainers3.jpg)
 
 Windows Server Containers share the same base OS and kernel. Hyper-V containers have been designed to be more isolated that Windows Server Containers and are running directly on the hypervisor. They are not sharing the guest OS nor the kernel. 
 When running on Windows 10, you can only work with Hyper-V containers. 

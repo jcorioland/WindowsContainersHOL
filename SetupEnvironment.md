@@ -125,44 +125,44 @@ If you do not want install and configure yourself Windows Server 2016 and the co
 Sign in to your Azure account on [http://portal.azure.com](http://portal.azure.com) and search for Windows Server 2016. In the list, you will find the image “with Containers”:
 
 ![Step1]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/SetupEnvironmentAzure1.png)
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part1/SetupEnvironmentAzure1.png)
 
 Click on this image in the results list:
 
 ![Step2]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/SetupEnvironmentAzure2.jpg)
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part1/SetupEnvironmentAzure2.jpg)
 
 Then click on Create to start the creation wizard:
 
 ![Step3]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/SetupEnvironmentAzure3.png)
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part1/SetupEnvironmentAzure3.png)
 
 Configure the basic settings of your new virtual machine: name, type of disk, username, password and the region where you want to deploy this machine. 
 
 ![Step4]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/SetupEnvironmentAzure4.jpg)
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part1/SetupEnvironmentAzure4.jpg)
 
 Then click OK and choose the size of the virtual machine. Click OK when you have made your choice. 
 In the next step, the only mandatory option is the network. Click on the Virtual Network option and click Create New: 
 
 ![Step5]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/SetupEnvironmentAzure5.png)
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part1/SetupEnvironmentAzure5.png)
 
 Give a name to your network and the address space / range you want to work with. Click OK to validate. 
 Now, you should be able to validate the step 3 and click OK to start the deployment once the validation step completed:
 
 ![Step6]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/SetupEnvironmentAzure6.jpg)
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part1/SetupEnvironmentAzure6.jpg)
 
 Wait for the deployment to be completed: 
 
 ![Step7]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/SetupEnvironmentAzure7.jpg)
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part1/SetupEnvironmentAzure7.jpg)
 
 Once deployed, click on the “Connect” button in the virtual machine general overview:
 
 ![Step8]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/SetupEnvironmentAzure8.png)
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part1/SetupEnvironmentAzure8.png)
 
 It will launch an RDP session. Use your credentials to start a session. Open PowerShell and start the docker service using the following command:
 
@@ -173,7 +173,7 @@ Start-Service Docker
 Once started, type **docker info** to validate that all is working as expected. 
 
 ![Step9]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/SetupEnvironmentAzure9.jpg)
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part1/SetupEnvironmentAzure9.jpg)
 
 ## Pull the base container Images
 
@@ -193,6 +193,6 @@ NB: if you have deployed the pre-configured virtual machine in Azure, the two ba
 Once completed, you can type docker image to check that the image is available on your machine: 
 
 ![Step10]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/SetupEnvironmentAzure10.jpg)
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part1/SetupEnvironmentAzure10.jpg)
 
 Your environment is now configured. You can go to the [Part 2](https://github.com/jcorioland/WindowsContainersHOL/blob/master/HelloWindowsContainers.md) that will help you to discover Windows Containers!
