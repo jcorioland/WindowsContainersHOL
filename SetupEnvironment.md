@@ -65,7 +65,7 @@ Start-Service Docker
 After this step, you should be able to work with Docker on your machine. You can type docker info to check that all is good. 
 
 ![PSResult]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/SetupEnvironment1.jpg)
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part1/SetupEnvironment1.jpg)
 
 ## Windows Server 2016
 
