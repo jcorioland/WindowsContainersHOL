@@ -7,3 +7,5 @@ The application that you are going to deploy within Windows Containers is pretty
 
 ![MyShopSample]
 (https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/MyShopSample.png)
+
+The content of this part will be available soon.
