@@ -19,12 +19,9 @@ namespace RatingsApi
                 .AddEnvironmentVariables(prefix: "SHOP_")
                 .Build();
 
-            string url = "http://0.0.0.0:5000";
-            
             var host = new WebHostBuilder()
                 .UseConfiguration(config)
                 .UseKestrel()
-                .UseUrls(url)
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
