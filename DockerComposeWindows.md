@@ -5,17 +5,11 @@ In this part, you will learn how to use Docker and Docker Compose to deploy a mu
 
 ## Introduction
 
-The application that you are going to deploy within Windows Containers is pretty simple as show in the figure above:
-
-![MyShopSample]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/MyShopSample.png)
-
-It is composed of four components, all developed using [ASP.NET Core 1.0](https://github.com/aspnet):
+The application that you are going to deploy within Windows Containers is pretty simple as it is composed of three components, all developed using [ASP.NET Core 1.0](https://github.com/aspnet):
 
 - Web Front: a simple web application that makes AJAX calls the three other APIs and display their results on the home page
 - Products Api : a simple rest API that returns a message with its version and the hostname where it is currently executed
 - Ratings Api : a simple rest API that returns a message with its version and the hostname where it is currently executed
-- Recommandations Api : a simple rest API that returns a message with its version and the hostname where it is currently executed
 
 All the source code for this application can be found in the [Sources](https://github.com/jcorioland/WindowsContainersHOL/tree/master/Sources) folder of this repository.
 
@@ -40,7 +34,6 @@ The project is quite simple, as you can see on the picture below:
 - The DotnetDocker folder contains a Dockerfile that allows to create a Windows container image with .NET Core installed inside
 - The ProductsApi folder contains the code for the Products web Api
 - The RatingsApi folder contains the code for the Ratings web Api
-- The RecommandationsApi folder contains the code for the Recommandations web Api
 - The ShopFront folder contains the code for the web application
 
 ## Build your first Docker image
