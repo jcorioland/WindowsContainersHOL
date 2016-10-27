@@ -93,4 +93,103 @@ Wait for the command to complete and use **docker images** to list the image ava
 
 If you do not already have a Docker Hub account, please go to https://hub.docker.com and create a new one, it's free!
 
-## Tag and push your image to the Docker Hub
+## Tag and push your .NET Core image to the Docker Hub
+
+To be able to push the image into your Docker Hub account, its name needs to start by your Docker Hub identifier. For example, my identifier is jcorioland, so all images I want to push in the hub should start with jcorioland/IMAGE_NAME.
+You can also add tag to an image, to version it and be able to push multiple versions of one container image. Here, we are going to use the .NET Core version to tag the image, using the **docker tag** command:
+
+```
+docker tag dotnetcore YOUR_DOCKER_HUB_IDENTIFIER/dotnetcore:1.0.0-preview2-003131
+```
+
+If you list the image available on the machine using the **docker images** commands you should see two entries with the same ID, dotnetcore with its default tag "latest" and the one you have just tagged.
+
+Now you can do a **docker login** and enter your Docker Hub credentials once prompted.
+
+![DockerBuild]
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/DockerLogin.png)
+
+As soon as you are successfuly logged in you can use the **docker push** command to push your image in your Docker Hub account:
+
+```
+docker push YOUR_DOCKER_HUB_IDENTIFIER/dotnetcore:1.0.0-preview2-003131
+```
+
+![DockerPush]
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/DockerPush.png)
+
+## Build and push images for Products API, Ratings API and Front
+
+In this step, you will build and push the image for each component of the application.
+In the Sources directory, there is a folder for each project and each one contains a Dockerfile that allows to package the application. As you can see, these Dockerfiles are not based on the microsoft/windowsservercore:latest image, but on the dotnetcore image that you have built at the step before.
+
+In each Dockerfile, update the image name in the **FROM** section to use your image.
+
+Then, you can build and push each image into your Docker Hub account, using the **docker build**, **docker tag**, **docker login** and **docker push** as explained before.
+
+Once you are done, you should have the 3 images on your machine and in your Docker Hub account:
+
+![DockerPush]
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/DockerImages.png)
+
+## Use Docker-Compose to start your application
+
+Docker Compose is a CLI tool that allows to start multiple containers at the same time. In this example, we want to launch 3 containers, one for each component of the application.
+
+If you look at the root of the Sources directory, you will see a docker-compose.yml file. This file defines the different services that will compose the application:
+
+```
+version: '2'
+networks:
+  nat:
+    external: true
+    
+services:
+  products-service:
+    image: jcorioland/products-api:1.0.0-preview2-003131
+    ports:
+      - "5001:5001"
+    networks:
+      nat:
+        ipv4_address: 172.26.127.31
+  ratings-service:
+    image: jcorioland/ratings-api:1.0.0-preview2-003131
+    ports:
+      - "5002:5002"
+    networks:
+      nat:
+        ipv4_address: 172.26.127.32
+  shop-front:
+    image: jcorioland/shop:1.0.0-preview2-003131
+    ports:
+      - "5000:5000"
+    networks:
+      nat:
+        ipv4_address: 172.26.127.30
+    environment:
+      - SHOP_PRODUCTS_API_URL=http://172.26.127.31:5001
+      - SHOP_RATINGS_API_URL=http://172.26.127.32:5002
+```
+
+All you need to do here is to replace the image name of each component by the names of your images. And then start the application using the following command:
+
+```
+docker-compose up
+```
+
+This will create three containers:
+
+![DockerComposeUp]
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/DockerComposeUp.png)
+
+Wait a minute to be sure that all applications are started in the containers:
+
+![DockerComposeUp2]
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/DockerComposeUp2.png)
+
+And then browse http://172.26.127.30:5000 on the machine you have started the containers:
+
+![ItWorks]
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/ItWorks.png)
+
+Et voilà! You have completed the part 3 of this Hands-on-Lab.
