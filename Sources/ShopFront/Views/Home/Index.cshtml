@@ -1,0 +1,66 @@
+@inject Microsoft.Extensions.Options.IOptions<ShopFront.Models.Settings> settings
+@{
+    ViewData["Title"] = "Welcome home";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1>@ViewData["Title"]</h1>
+        <hr />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <h3>Products Api</h3>
+        <span id="ProductsApiPlaceholder"></span>
+    </div>
+    <div class="col-lg-6">
+        <h3>Ratings Api</h3>
+        <span id="RatingsApiPlaceholder"></span>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        ($(document).ready(function(){
+            var productsApiPlaceholder = $("#ProductsApiPlaceholder");
+            var ratingsApiPlaceholder = $("#RatingsApiPlaceholder");
+
+            var productsApiUrl = "@settings.Value.ProductsApiUrl" + "/api/products";
+            var ratingsApiUrl = "@settings.Value.RatingsApiUrl" + "/api/ratings";
+
+            productsApiPlaceholder.text("chargement...");
+            ratingsApiPlaceholder.text("chargement...");
+
+            function callProductsApi(){
+                $.ajax({
+                    url: productsApiUrl + "?_=" + Math.random(),
+                    type: "GET"
+                })
+                .success(function(message){
+                    productsApiPlaceholder.text(message);
+                })
+                .error(function(){
+                    productsApiPlaceholder.text("Erreur.");
+                });
+            };
+
+            function callRatingsApi(){
+                $.ajax({
+                    url: ratingsApiUrl + "?_=" + Math.random(),
+                    type: "GET"
+                })
+                .success(function(message){
+                    ratingsApiPlaceholder.text(message);
+                })
+                .error(function(){
+                    ratingsApiPlaceholder.text("Erreur.");
+                });
+            };
+
+            setInterval(callProductsApi, 5000);
+            setInterval(callRatingsApi, 5000);
+        }));
+    </script>
+}
