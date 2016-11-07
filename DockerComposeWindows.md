@@ -137,7 +137,7 @@ services:
 All you need to do here is to replace the image name of each component by the names of your images. And then start the application using the following command:
 
 ```
-docker-compose up
+docker-compose -f docker-compose-nanoserver.yml up
 ```
 
 This will create three containers:
