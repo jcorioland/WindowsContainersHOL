@@ -12,8 +12,7 @@ The application that you are going to deploy within Windows Containers is pretty
 - Ratings Api : a simple rest API that returns a message with its version and the hostname where it is currently executed
 
 All the source code for this application can be found in the [Sources](https://github.com/jcorioland/WindowsContainersHOL/tree/master/Sources) folder of this repository.
-
-You can install [Visual Studio Code](https://code.visualstudio.com) (available on Linux, macOS or Windows) to be able to work with this source code.
+You can use any text editor to visualize the sources or you can install [Visual Studio Code](https://code.visualstudio.com) (available on Linux, macOS or Windows) to be able to work with this source code.
 
 First, clone this repository using the following command:
 
@@ -21,17 +20,8 @@ First, clone this repository using the following command:
 git clone https://github.com/jcorioland/WindowsContainersHOL.git
 ```
 
-Then, go to the directory where you cloned the repository and type **code .** to open it with Visual Studio Code:
+The project is quite simple:
 
-![VSCode]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/VSCode.png)
-
-The project is quite simple, as you can see on the picture below:
-
-![VSCodeProject]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/VSCodeProject.png)
-
-- The DotnetDocker folder contains a Dockerfile that allows to create a Windows container image with .NET Core installed inside
 - The ProductsApi folder contains the code for the Products web Api
 - The RatingsApi folder contains the code for the Ratings web Api
 - The ShopFront folder contains the code for the web application
@@ -52,85 +42,58 @@ The basic DevOps workflow when working with Docker is:
 6. The ops guy run the container from the image
 7. The ops guy operate / monitor the application
 
-If you look at the [Dockerfile in the DotnetDocker](https://github.com/jcorioland/WindowsContainersHOL/blob/master/DotnetDocker/Dockerfile) folder, you will see the following:
+As there are two different images for Windows Server Containers, you can choose to build your images based on Windows Server Core or Nano Server (which is smaller). In each project's folder, you will see two Dockerfile, one for Windows Server Core and one for Nano Server.
+
+Open a PowerShell session and go to the ProductsApi directory. Then you can build the products API image using:
 
 ```
-FROM microsoft/windowsservercore:latest
-
-MAINTAINER Julien Corioland, Microsoft (@jcorioland)
-
-RUN powershell -Command \
-        Invoke-WebRequest 'https://dotnetcli.blob.core.windows.net/dotnet/preview/Binaries/1.0.0-preview2-003131/dotnet-dev-win-x64.1.0.0-preview2-003131.zip' -OutFile dotnet.zip; \
-        Expand-Archive dotnet.zip -DestinationPath '%ProgramFiles%\dotnet'; \
-        Remove-Item -Force dotnet.zip
-
-RUN setx /M PATH "%PATH%;%ProgramFiles%\dotnet"
-
-# Trigger the population of the local package cache
-ENV NUGET_XMLDOC_MODE skip
-RUN mkdir warmup \
-    && cd warmup \
-    && dotnet new \
-    && cd .. \
-    && rmdir /q/s warmup
+docker build -t products-api -f Dockerfile.Nano .
 ```
 
-As you can see, there is a mix of meta commands like FROM, MAINTAINER, RUN (for the complete list, see the [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)) that allows to define each operation that should be done to create the container image.
-In this case, we use the **microsoft/windowsservercore:latest** base image from the Docker Hub, then we run a Powershell command to download and extract .NET Core, we set an environment variable, and finally we create a first .NET Core project to warm up the SDK.
-
-To build this image, open a PowerShell session in the DotnetDocker directory and use the following command:
+Then, go to the RatingsApi folder and build the ratings API image:
 
 ```
-docker build -t dotnetcore .
+docker build -t ratings-api -f Dockerfile.Nano .
 ```
 
-Wait for the command to complete and use **docker images** to list the image available on your machine. You should see the dotnetcore image that you have just built.
+And finally, do the same for the web front, in the ShopFront directory:
 
-![DockerBuild]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/DockerBuild.png)
+```
+docker build -t shop-front -f Dockerfile.Nano .
+```
+
+Note : if you want build image based on Windows Server Core, just use the Dockerfile.WSCore instead of the Dockerfile.Nano.
 
 ## Create a Docker Hub account
 
 If you do not already have a Docker Hub account, please go to https://hub.docker.com and create a new one, it's free!
 
-## Tag and push your .NET Core image to the Docker Hub
+## Tag and push your images to the Docker Hub
 
 To be able to push the image into your Docker Hub account, its name needs to start by your Docker Hub identifier. For example, my identifier is jcorioland, so all images I want to push in the hub should start with jcorioland/IMAGE_NAME.
-You can also add tag to an image, to version it and be able to push multiple versions of one container image. Here, we are going to use the .NET Core version to tag the image, using the **docker tag** command:
+You can also add tag to an image, to version it and be able to push multiple versions of one container image.
+
+You can use the **docker tag** command to add a tag to the images you have built in the previous steps.
 
 ```
-docker tag dotnetcore YOUR_DOCKER_HUB_IDENTIFIER/dotnetcore:1.0.0-preview2-003131
+docker tag products-api YOUR_DOCKER_HUB_IDENTIFIER/products-api:1.0.0-preview2-nanoserver
 ```
 
-If you list the image available on the machine using the **docker images** commands you should see two entries with the same ID, dotnetcore with its default tag "latest" and the one you have just tagged.
+Repeat this operation for all the images.
 
 Now you can do a **docker login** and enter your Docker Hub credentials once prompted.
 
 ![DockerBuild]
 (https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/DockerLogin.png)
 
-As soon as you are successfuly logged in you can use the **docker push** command to push your image in your Docker Hub account:
+As soon as you are successfuly logged in you can use the **docker push** command to push each images in your Docker Hub account:
 
 ```
-docker push YOUR_DOCKER_HUB_IDENTIFIER/dotnetcore:1.0.0-preview2-003131
+docker push YOUR_DOCKER_HUB_IDENTIFIER/products-api:1.0.0-preview2-nanoserver
 ```
 
 ![DockerPush]
 (https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/DockerPush.png)
-
-## Build and push images for Products API, Ratings API and Front
-
-In this step, you will build and push the image for each component of the application.
-In the Sources directory, there is a folder for each project and each one contains a Dockerfile that allows to package the application. As you can see, these Dockerfiles are not based on the microsoft/windowsservercore:latest image, but on the dotnetcore image that you have built at the step before.
-
-In each Dockerfile, update the image name in the **FROM** section to use your image.
-
-Then, you can build and push each image into your Docker Hub account, using the **docker build**, **docker tag**, **docker login** and **docker push** as explained before.
-
-Once you are done, you should have the 3 images on your machine and in your Docker Hub account:
-
-![DockerPush]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/DockerImages.png)
 
 ## Use Docker-Compose to start your application
 
@@ -146,21 +109,21 @@ networks:
     
 services:
   products-service:
-    image: jcorioland/products-api:1.0.0-preview2-003131
+    image: jcorioland/products-api:1.0.0-preview2-nanoserver
     ports:
       - "5001:5001"
     networks:
       nat:
         ipv4_address: 172.26.127.31
   ratings-service:
-    image: jcorioland/ratings-api:1.0.0-preview2-003131
+    image: jcorioland/ratings-api:1.0.0-preview2-nanoserver
     ports:
       - "5002:5002"
     networks:
       nat:
         ipv4_address: 172.26.127.32
   shop-front:
-    image: jcorioland/shop:1.0.0-preview2-003131
+    image: jcorioland/shop-front:1.0.0-preview2-nanoserver
     ports:
       - "5000:5000"
     networks:
