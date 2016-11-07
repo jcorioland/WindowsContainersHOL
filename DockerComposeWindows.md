@@ -84,7 +84,7 @@ Repeat this operation for all the images.
 Now you can do a **docker login** and enter your Docker Hub credentials once prompted.
 
 ![DockerBuild]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/DockerLogin.png)
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/DockerLogin.PNG)
 
 As soon as you are successfuly logged in you can use the **docker push** command to push each images in your Docker Hub account:
 
@@ -93,7 +93,7 @@ docker push YOUR_DOCKER_HUB_IDENTIFIER/products-api:1.0.0-preview2-nanoserver
 ```
 
 ![DockerPush]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/DockerPush.png)
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/DockerPush.PNG)
 
 ## Use Docker-Compose to start your application
 
@@ -143,16 +143,16 @@ docker-compose up
 This will create three containers:
 
 ![DockerComposeUp]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/DockerComposeUp.png)
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/DockerComposeUp.PNG)
 
 Wait a minute to be sure that all applications are started in the containers:
 
 ![DockerComposeUp2]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/DockerComposeUp2.png)
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/DockerComposeUp2.PNG)
 
 And then browse http://172.26.127.30:5000 on the machine you have started the containers:
 
 ![ItWorks]
-(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/ItWorks.png)
+(https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part3/ItWorks.PNG)
 
 Et voilà! You have completed the part 3 of this Hands-on-Lab.
