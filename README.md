@@ -26,3 +26,4 @@ Here are some external links that could be useful to get more information about 
 - [Windows Containers on Windows Server Quick Start](https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/quick_start_windows_server)
 - [Windows Containers on Windows 10 Quick Start](https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/quick_start_windows_10)
 - [Hyper-V Containers](https://msdn.microsoft.com/en-us/virtualization/windowscontainers/management/hyperv_container)
+- [Windows and .NET Tutorials](https://github.com/docker/labs/tree/master/windows)
