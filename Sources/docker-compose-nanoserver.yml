@@ -1,0 +1,30 @@
+version: '2'
+networks:
+  nat:
+    external: true
+    
+services:
+  products-service:
+    image: jcorioland/products-api:1.0.0-preview2-nanoserver
+    ports:
+      - "5001:5001"
+    networks:
+      nat:
+        ipv4_address: 172.26.127.31
+  ratings-service:
+    image: jcorioland/ratings-api:1.0.0-preview2-nanoserver
+    ports:
+      - "5002:5002"
+    networks:
+      nat:
+        ipv4_address: 172.26.127.32
+  shop-front:
+    image: jcorioland/shop-front:1.0.0-preview2-nanoserver
+    ports:
+      - "5000:5000"
+    networks:
+      nat:
+        ipv4_address: 172.26.127.30
+    environment:
+      - SHOP_PRODUCTS_API_URL=http://172.26.127.31:5001
+      - SHOP_RATINGS_API_URL=http://172.26.127.32:5002
