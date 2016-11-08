@@ -53,7 +53,7 @@ Expand-Archive -Path “$env:TEMP\docker-1.13.0-dev.zip” -DestinationPath $env
 7. Register the Docker deamon as a service on your machine:
 
 ```PowerShell
-dockerd –register-service
+dockerd --register-service
 ```
 
 8. Start the Docker service:
@@ -190,7 +190,7 @@ docker pull microsoft/nanoserver
 
 NB: if you have deployed the pre-configured virtual machine in Azure, the two base images are already pulled.
 
-Once completed, you can type docker image to check that the image is available on your machine: 
+Once completed, you can type **docker images** to check that the images are available on your machine: 
 
 ![Step10]
 (https://github.com/jcorioland/WindowsContainersHOL/blob/master/Images/Part1/SetupEnvironmentAzure10.jpg)
